@@ -1,6 +1,8 @@
 import winningpath as w
 import player as p
 import node as n
+from subprocess import call
+
 class Game:
 
     def __init__(self, player1, player2, boardsize):
@@ -82,6 +84,7 @@ class Game:
 
     def makemove(self, player):
         if player.mode == "human":
+           rc = call("./displaygame.sh")
            self.print()
            print(f"enter your move, {player.piece}!")
            invalid = True
@@ -105,6 +108,8 @@ class Game:
     def play(self, player):
         
         if self.haswinner() == True:
+            rc = call("./displaygame.sh")
+            self.print()
             print(f"victory for {player.opponent.piece}!")
             return None
         elif len(self.nodes) == self.boardsize**2:
@@ -125,6 +130,7 @@ class Game:
     def print(self):
         type1 = "   #   #   "
         type2 = "###########"
+        print("\n")
         print(type1)
         print(" " + self.searchtoprint("11") + " " + "#" + " " + self.searchtoprint("12")+ " " + "#" + " " + self.searchtoprint("13") + " ")
         print(type1)
@@ -135,17 +141,10 @@ class Game:
         print(type2)
         print(type1)
         print(" " + self.searchtoprint("31") + " " + "#" + " " + self.searchtoprint("32")+ " " + "#" + " " + self.searchtoprint("33") + " ")
+        print("\n")
 
     def main(self):
         
         self.generatepaths(self.boardsize)
-        self.play(player1)
+        self.play(self.player1)
 
-if __name__=='__main__':
-    
-    player1 = p.Player("human", "X")
-    player2 = p.Player("human", "O")
-    player1.opponent = player2
-    player2.opponent = player1
-    game = Game(player1, player2, 3)
-    game.main()

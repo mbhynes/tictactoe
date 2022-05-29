@@ -35,6 +35,9 @@ class Game:
             self.winningpaths.append(temp)
 
         #diagonal top left bottom right
+        nodeIDs = []
+        fullid = ""
+        
         for i in range(1, boardsize + 1):
             nodeIDs.append(str(i) + str(i))
             fullid = fullid + str(i) + str(i)
@@ -42,6 +45,9 @@ class Game:
         self.winningpaths.append(temp)
 
         #diagonal bottom left top right
+        nodeIDs = []
+        fullid = ""
+
         for i in range(1, boardsize + 1):
             nodeIDs.append(str(self.boardsize +1 - i) + str(i))
             fullid = fullid + str(i) + str(i)
@@ -53,12 +59,12 @@ class Game:
     def haswinner(self):
         
         for path in range (0, len(self.winningpaths)):
-            if self.winningpaths[path].state == 1:
+            if self.winningpaths[path].state == 1: #winner found
                 self.winner = self.winningpaths[path].nodes[0].state
                 return True
-            else:
-                return False
-        
+
+        return False
+
     def makemove(self, player):
         if player.mode == "human":
            self.print()
@@ -68,6 +74,7 @@ class Game:
            self.nodes.append(temp)
 
            for path in self.winningpaths:
+               print(path.nodeIDs)
                if temp.ID in path.nodeIDs:
                    path.addnode(temp)
 
@@ -76,9 +83,9 @@ class Game:
     def play(self, player):
         
         if self.haswinner() == True:
-            print(f"victory for {player.piece}!")
+            print(f"victory for {player.opponent.piece}!")
             return None
-        elif len(self.nodes) == 9:
+        elif len(self.nodes) == self.boardsize**2:
             print("tie game!")
             return None
 

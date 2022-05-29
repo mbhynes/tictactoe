@@ -10,14 +10,15 @@ class Winningpath:
     def addnode(self, node):
         self.nodes.append(node)
         for i in range(0, len(self.nodes)- 1):
-            if self.nodes[i].ID != self.nodes[i+1].ID:
+            if self.nodes[i].state != self.nodes[i+1].state:
                 self.state = -1 #cant win in this winningpath now
-                print("lost this path!")
+                print(f"lost path {self.ID}!")
                 return None
 
         if len(self.nodes) == len(self.nodeIDs):
             self.state = 1 #won the game
             print("won this path!")
+            return None
 
         return None
 

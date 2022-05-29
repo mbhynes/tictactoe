@@ -8,13 +8,13 @@ class Winningpath:
         self.state = 0
 
     def addnode(self, node):
-        nodes.append(node)
-        for i in range(0, len(nodes)):
-            if nodes[i].ID != nodes[i+1].ID:
-                state = -1 #cant win in this winningpath now
+        self.nodes.append(node)
+        for i in range(0, len(self.nodes)- 1):
+            if self.nodes[i].ID != self.nodes[i+1].ID:
+                self.state = -1 #cant win in this winningpath now
 
-        if len(nodes) = len(nodeIDs):
-            state = 1 #won the game
+        if len(self.nodes) == len(self.nodeIDs):
+            self.state = 1 #won the game
 
         return None
 

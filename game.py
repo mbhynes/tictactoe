@@ -34,8 +34,16 @@ class Game:
             temp = w.Winningpath(fullid, nodeIDs)
             self.winningpaths.append(temp)
 
+        #diagonal top left bottom right
         for i in range(1, boardsize + 1):
             nodeIDs.append(str(i) + str(i))
+            fullid = fullid + str(i) + str(i)
+        temp = w.Winningpath(fullid, nodeIDs)
+        self.winningpaths.append(temp)
+
+        #diagonal bottom left top right
+        for i in range(1, boardsize + 1):
+            nodeIDs.append(str(self.boardsize +1 - i) + str(i))
             fullid = fullid + str(i) + str(i)
         temp = w.Winningpath(fullid, nodeIDs)
         self.winningpaths.append(temp)
@@ -46,20 +54,22 @@ class Game:
         
         for path in range (0, len(self.winningpaths)):
             if self.winningpaths[path].state == 1:
-                self.winner = self.winningpaths[path].nodes[0].piece
+                self.winner = self.winningpaths[path].nodes[0].state
                 return True
             else:
                 return False
         
     def makemove(self, player):
         if player.mode == "human":
-           move = input("enter your move")
+           move = input("enter your move: ")
+           print(player.piece)
+           print(len(self.winningpaths))
            temp = n.Node(player.piece, move)
-           Nodes.append(temp)
+           self.nodes.append(temp)
 
-            for path in self.winningpaths:
-                if temp.ID in path.nodeIDs:
-                    path.nodes.addnode(temp)
+           for path in self.winningpaths:
+               if temp.ID in path.nodeIDs:
+                   path.addnode(temp)
 
         return None
 
@@ -72,9 +82,12 @@ class Game:
             self.makemove(player)
             self.play(player.opponent)
 
-    def main(self, boardsize):
+    def print(self):
+        pass
+
+    def main(self):
         
-        self.generatepaths(boardsize)
+        self.generatepaths(self.boardsize)
         self.play(player1)
 
 if __name__=='__main__':
@@ -83,3 +96,5 @@ if __name__=='__main__':
     player2 = p.Player("human", "O")
     player1.opponent = player2
     player2.opponent = player1
+    game = Game(player1, player2, 3)
+    game.main()

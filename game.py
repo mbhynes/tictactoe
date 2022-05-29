@@ -65,16 +65,38 @@ class Game:
 
         return False
 
+    def validmove(self, move):
+        if len(move) != 2 or type(int(move)) != int:
+            return False
+        if not (int(move[0]) > 0 and int(move[0]) <= self.boardsize):
+            return False
+        if not (int(move[1]) > 0 and int(move[1]) <= self.boardsize):
+            return False
+
+        for node in self.nodes:
+            if node.ID == move:
+                return False
+
+        else:
+            return True
+
     def makemove(self, player):
         if player.mode == "human":
            self.print()
            print(f"enter your move, {player.piece}!")
-           move = input()
+           invalid = True
+           while invalid:
+                move = input()
+                if self.validmove(move):
+                    invalid = False
+                    break
+                print(f"invalid move! try again, {player.piece}!")
+
+           
            temp = n.Node(player.piece, move)
            self.nodes.append(temp)
 
            for path in self.winningpaths:
-               print(path.nodeIDs)
                if temp.ID in path.nodeIDs:
                    path.addnode(temp)
 

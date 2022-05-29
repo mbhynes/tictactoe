@@ -12,12 +12,10 @@ class Winningpath:
         for i in range(0, len(self.nodes)- 1):
             if self.nodes[i].state != self.nodes[i+1].state:
                 self.state = -1 #cant win in this winningpath now
-                print(f"lost path {self.ID}!")
                 return None
 
         if len(self.nodes) == len(self.nodeIDs):
             self.state = 1 #won the game
-            print("won this path!")
             return None
 
         return None

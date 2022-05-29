@@ -78,6 +78,10 @@ class Game:
         if self.haswinner() == True:
             print(f"victory for {player.piece}!")
             return None
+        elif len(self.nodes) == 9:
+            print("tie game!")
+            return None
+
         else:
             self.makemove(player)
             self.play(player.opponent)

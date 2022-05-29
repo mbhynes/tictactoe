@@ -61,9 +61,9 @@ class Game:
         
     def makemove(self, player):
         if player.mode == "human":
-           move = input("enter your move: ")
-           print(player.piece)
-           print(len(self.winningpaths))
+           self.print()
+           print(f"enter your move, {player.piece}!")
+           move = input()
            temp = n.Node(player.piece, move)
            self.nodes.append(temp)
 
@@ -82,8 +82,26 @@ class Game:
             self.makemove(player)
             self.play(player.opponent)
 
+    def searchtoprint(self, ID):
+        for node in self.nodes:
+            if node.ID == ID:
+                return node.state
+
+        return " "
+
     def print(self):
-        pass
+        type1 = "   #   #   "
+        type2 = "###########"
+        print(type1)
+        print(" " + self.searchtoprint("11") + " " + "#" + " " + self.searchtoprint("12")+ " " + "#" + " " + self.searchtoprint("13") + " ")
+        print(type1)
+        print(type2)
+        print(type1)
+        print(" " + self.searchtoprint("21") + " " + "#" + " " + self.searchtoprint("22")+ " " + "#" + " " + self.searchtoprint("23") + " ")
+        print(type1)
+        print(type2)
+        print(type1)
+        print(" " + self.searchtoprint("31") + " " + "#" + " " + self.searchtoprint("32")+ " " + "#" + " " + self.searchtoprint("33") + " ")
 
     def main(self):
         

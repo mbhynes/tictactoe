@@ -13,7 +13,7 @@ Check
 ```
 python play.py -h
 ```
-for additional options to customize the game
+for additional options to customize the game.
 
 For example, running:
 ```

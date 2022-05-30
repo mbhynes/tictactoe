@@ -228,7 +228,7 @@ class Game:
             self.print()
             self.makemove(player)
             if player.mode == "computer":
-                time.sleep(2)
+                time.sleep(0.5)
             self.play(player.opponent)
 
     def searchtoprint(self, ID):

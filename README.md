@@ -23,14 +23,11 @@ will start a game where a computer player has the first move with their piece be
 
 To play, when prompted for your move, enter the row and column number of the square you want.
 
-// 11 # 12# 13  
-//   #   #   
-//###########
-//21 # 22# 23  
-//   #   #  
-//###########
-//31 # 32# 33
-//   #   #  
+11 12 13  
+
+21 22 23  
+
+31 32 33   is what the entry for each square is
 
 for example to go to the middle square, type 22, top left type 11, etc.
    

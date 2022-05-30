@@ -7,15 +7,15 @@ to play, run:
 python play.py
 ```
 The default will be a 3x3 board with a human player going first, then the computer. Pieces are X and O respectively. 
-board sizes other than 3x3 are not currently supported and may cause an error, support will be added in the future.
+Board sizes other than 3x3 are not currently supported and may cause an error, support will be added in the future.
 
-check
+Check
 ```
 python play.py -h
 ```
 for additional options to customize the game
 
-for example, running
+For example, running:
 ```
 python play.py 3 computer X human O
 ```

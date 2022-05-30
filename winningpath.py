@@ -20,11 +20,25 @@ class Winningpath:
 
         return None
 
-    def nodesneeded():
-
+    def nodesneeded(self):
+        
         needed = []
-        for i in range(0, len(ID)-1, 2):
-            if (ID[i] + ID[i+1]) not in nodeIDs:
-                needed.append(ID[i] + ID[i+1])
+        for i in self.nodeIDs:
+            needID = True
+            for node in self.nodes:
+                if node.ID == i:
+                    needID = False
+            if needID:
+                needed.append(i)
 
         return needed
+
+    def displayinfo(self):
+        print("\n")
+        print("path ID: " + self.ID)
+        print("nodes currently on path:") 
+        for node in self.nodes:
+            print("\tID: " + node.ID)
+            print("\tstate: " + str(node.state))
+        print("path state:" + str(self.state))
+        print("nodes needed: " + str(self.nodesneeded()))

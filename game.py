@@ -1,6 +1,8 @@
 import winningpath as w
 import player as p
 import node as n
+import random
+import time
 from subprocess import call
 
 class Game:
@@ -87,9 +89,9 @@ class Game:
         #HUMAN PLAYER
 
         if player.mode == "human":
-           print("HUMAN TIME")
+           #print("HUMAN TIME")
            #rc = call("./displaygame.sh")
-           self.print()
+           #self.print()
            print(f"enter your move, {player.piece}!")
            invalid = True
            while invalid:
@@ -110,7 +112,7 @@ class Game:
         #COMPUTER PLAYER
 
         elif player.mode == "computer":
-            print("COMPUTER TIME")
+           # print("COMPUTER TIME")
             winning = []
             empty = []
             losing = []
@@ -121,16 +123,16 @@ class Game:
             winningarrayposition = None
 
             for path in self.winningpaths: 
-                path.displayinfo()
+                #path.displayinfo()
                 if path.state == 0: #winning paths that can still be won
 
                     if len(path.nodes) == 0: #empty winning path
                         empty.append(path)
-                        print("append empty")
+                        #print("append empty")
                         continue
                     elif path.nodes[0].state != player.piece:
                         losing.append(path)
-                        print("append losing")
+                        #print("append losing")
 
                         if len(losing[len(losing)-1].nodesneeded()) < numuntilloss:
                             numuntilloss = len(losing[len(losing)-1].nodesneeded())
@@ -138,13 +140,13 @@ class Game:
                             continue
                     else:
                         winning.append(path)
-                        print("append winning")
+                        #print("append winning")
                         if len(winning[len(winning) - 1].nodesneeded()) < numuntilwin:
                             numuntilwin = len(winning[len(winning) - 1].nodesneeded())
                             winningarrayposition = len(winning) - 1
                             continue
                 elif path.state == -1 and len(path.nodesneeded()) > 0:
-                    print("append ties")
+                    #print("append ties")
                     ties.append(path)
 
             #check if computer has imminent wins
@@ -169,7 +171,7 @@ class Game:
 
             else:
                 if len(winning) > 0:
-                    nextmove = winning[0].nodesneeded()[0]
+                    nextmove = random.choice(random.choice(winning).nodesneeded())
                     temp = n.Node(player.piece, nextmove)
                     self.nodes.append(temp)
                     for path in self.winningpaths:
@@ -177,7 +179,7 @@ class Game:
                             path.addnode(temp)
                     return None
                 elif len(losing) > 0:
-                    nextmove = losing[0].nodesneeded()[0]
+                    nextmove = random.choice(random.choice(losing).nodesneeded())
                     temp = n.Node(player.piece, nextmove)
                     self.nodes.append(temp)
                     for path in self.winningpaths:
@@ -185,7 +187,7 @@ class Game:
                             path.addnode(temp)
                     return None
                 elif len(empty) > 0:
-                    nextmove = empty[0].nodesneeded()[0]
+                    nextmove = random.choice(random.choice(empty).nodesneeded())
                     temp = n.Node(player.piece, nextmove)
                     self.nodes.append(temp)
                     for path in self.winningpaths:
@@ -193,7 +195,7 @@ class Game:
                             path.addnode(temp)
                     return None
                 else:
-                    nextmove = ties[0].nodesneeded()[0]
+                    nextmove = random.choice(random.choice(ties).nodesneeded())
                     temp = n.Node(player.piece, nextmove)
                     self.nodes.append(temp)
                     for path in self.winningpaths:
@@ -207,21 +209,26 @@ class Game:
     def play(self, player):
         
         if self.haswinner() == True:
-            #rc = call("./displaygame.sh")
+            rc = call("./displaygame.sh")
             self.print()
             print(f"victory for {player.opponent.piece}!")
             return None
         elif len(self.nodes) == self.boardsize**2:
+            rc = call("./displaygame.sh")
+            self.print()
             print("tie game!")
             return None
 
         else:
             ### testing
-            for node in self.nodes:
-                print("node on board: " + node.ID)
+            #for node in self.nodes:
+            #    print("node on board: " + node.ID)
             ###
-
+            rc = call("./displaygame.sh")
+            self.print()
             self.makemove(player)
+            if player.mode == "computer":
+                time.sleep(2)
             self.play(player.opponent)
 
     def searchtoprint(self, ID):
